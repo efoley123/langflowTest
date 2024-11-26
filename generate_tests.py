@@ -60,36 +60,15 @@ class TestGenerator:
        }
        return frameworks.get(language, 'unknown')
 
-   def create_prompt(self, file_name: str, language: str) -> Optional[str]:
+   def create_prompt(self, file_name: str) -> Optional[str]:
        """Create a language-specific prompt for test generation."""
        try:
            with open(file_name, 'r') as f:
                code_content = f.read()
+               return code_content
        except Exception as e:
            logging.error(f"Error reading file {file_name}: {e}")
            return None
-
-       framework = self.get_test_framework(language)
-       
-       prompt = f"""Generate comprehensive unit tests for the following {language} code using {framework}.
-
-Requirements:
-1. Include edge cases, normal cases, and error cases
-2. Use mocking where appropriate for external dependencies
-3. Include setup and teardown if needed
-4. Add descriptive test names and docstrings
-5. Follow {framework} best practices
-6. Ensure high code coverage
-7. Test both success and failure scenarios
-
-Code to test:
-
-{code_content}
-
-Generate only the test code without any explanations or notes."""
-
-       logging.info(f"Created prompt for {language} using {framework}. Length: {len(prompt)} characters")
-       return prompt
 
    def call_openai_api(self, prompt: str) -> Optional[str]:
        """Call OpenAI API to generate test cases."""
@@ -192,17 +171,12 @@ Generate only the test code without any explanations or notes."""
 
        for file_name in changed_files:
            try:
-               language = self.detect_language(file_name)
-               if language == 'Unknown':
-                   logging.warning(f"Unsupported file type: {file_name}")
-                   continue
-
-               logging.info(f"Processing {file_name} ({language})")
-               prompt = self.create_prompt(file_name, language)
+               #get file content
+               fileContent = self.create_prompt(file_name)
                
                if prompt:
                    # Generate test cases from the API
-                   test_cases = self.call_openai_api(prompt)
+                   #test_cases = self.call_openai_api(prompt)
                    
                    # Clean up quotation marks if test cases were generated
                    if test_cases:
