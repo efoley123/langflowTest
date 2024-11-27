@@ -36,6 +36,7 @@ jobs:
        run: |
          python -m pip install --upgrade pip
          pip install requests pytest
+         python -m pip install langflow
 
      - name: Create tests directory
        run: mkdir -p generated_tests
