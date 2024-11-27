@@ -40,7 +40,7 @@ class TestGenerator:
        }
        _, ext = os.path.splitext(file_name)
        return extensions.get(ext.lower(), 'Unknown')
-   def create_prompt(self, file_name: str) -> Optional[str]:
+   def get_file_content(self, file_name: str) -> Optional[str]:
        """Create a language-specific prompt for test generation."""
        try:
            with open(file_name, 'r') as f:
@@ -110,7 +110,7 @@ class TestGenerator:
        for file_name in changed_files:
            try:
                #get file content
-               fileContent = self.create_prompt(file_name)
+               fileContent = self.get_file_content(file_name)
                language = self.detect_language(file_name)
                if fileContent:
                   #call the updateDB.py file
