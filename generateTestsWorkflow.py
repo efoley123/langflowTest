@@ -10,7 +10,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-def generate_tests(file_content: str):
+async def generate_tests(file_content: str):
     """
     Run the LangFlow workflow using the provided file content as input.
     Args:
@@ -22,7 +22,11 @@ def generate_tests(file_content: str):
     TWEAKS = { # adjust as needed
   "ChatInput-2TMlO": {}, #customize with relevent tweaks if needed 
   "OpenAIEmbeddings-i7380": {},
-  "AstraDB-mWWFP": {},
+  "AstraDB-mWWFP": {
+        "session_id": "12345", #random numbers
+        "sender": "User",
+        "sender_name": "User"
+    },
   "ParseData-WW2yc": {},
   "OpenAIModel-e95ZS": {},
   "ChatOutput-1FgzW": {},
@@ -30,7 +34,7 @@ def generate_tests(file_content: str):
 }
     try:
         # Run the workflow
-        result = run_flow_from_json(flow="GenerateTests.json", # Path to your LangFlow workflow JSON file
+        result = await run_flow_from_json(flow="GenerateTests.json", # Path to your LangFlow workflow JSON file
                             input_value=file_content,  # Use file content as input for the workflow
                             session_id="", # Optional: provide a session ID if needed
                             fallback_to_env_vars=True, # Default: False
