@@ -108,7 +108,7 @@ class TestGenerator:
            logging.info("No files changed.")
            return
        for file_name in changed_files:
-           if file_name != "generate_tests.py" or file_name != "updateDB.py" or file_name != "generateTestsWorkflow.py":
+           if (file_name != "generate_tests.py" or file_name != "updateDB.py" or file_name != "generateTestsWorkflow.py"):
             try:
                 #get file content
                 fileContent = self.get_file_content(file_name)

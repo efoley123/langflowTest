@@ -20,7 +20,7 @@ def generate_tests(file_content: str):
     """
     # Define your tweaks
     TWEAKS = { # adjust as needed
-  "ChatInput-2TMlO": {},
+  "ChatInput-2TMlO": {}, #customize with relevent tweaks if needed 
   "OpenAIEmbeddings-i7380": {},
   "AstraDB-mWWFP": {},
   "ParseData-WW2yc": {},
