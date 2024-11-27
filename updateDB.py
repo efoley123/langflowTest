@@ -5,11 +5,11 @@ from langflow.load import run_flow_from_json
 from astrapy import DataAPIClient
 # Set the tweaks for the flow (if necessary)
 TWEAKS = {
-  "GitLoader-jdVGj": {},  # Customize with relevant tweaks if needed
-  "SplitText-l3Lkl": {},
-  "OpenAIEmbeddings-5GVtg": {},
-  "AstraDB-o2Sam": {},
-  "ChatInput-i84PJ": {}
+  "GitLoader-9r3EU": {}, #customize with relevent tweaks if needed
+  "SplitText-pzSeX": {},
+  "OpenAIEmbeddings-ZcvG7": {},
+  "AstraDB-u1Mqb": {},
+  "ChatInput-5fjVm": {}
 }
 # Initialize the Astra DB client
 client = DataAPIClient("TOKEN")
@@ -49,13 +49,11 @@ def main():
         # Get the repository path
         repo_path = get_repo_path()
         # Run the flow and send the repository path as input
-        response = run_flow_from_json(
-            flow="create vectordb.json",  # Path to your flow definition
-            input_value=repo_path,  # Send the repository path as input
-            session_id="",  # Optional session ID
-            fallback_to_env_vars=True,  # Use environment variables if necessary
-            tweaks=TWEAKS  # Optional tweaks to customize flow components
-        )
+        response = run_flow_from_json(flow="create vectordb.json", # Path to your flow definition
+                            input_value=repo_path,# Send the repository path as input
+                            session_id="", # Optional session ID
+                            fallback_to_env_vars=True, # Use environment variables if necessary
+                            tweaks=TWEAKS) # Optional tweaks to customize flow components
         # Print the response from the flow
         print(json.dumps(response, indent=2))
     except ValueError as e:
