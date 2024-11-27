@@ -108,23 +108,24 @@ class TestGenerator:
            logging.info("No files changed.")
            return
        for file_name in changed_files:
-           try:
-               #get file content
-               fileContent = self.get_file_content(file_name)
-               language = self.detect_language(file_name)
-               if fileContent:
-                  #call the updateDB.py file
-                  self.update_database(file_name, fileContent)
-                  #call another file that will call the workflow that actually generates tests, send that file the fileContent variable as an argument-- still needs to be made
-                  #the second file should return the tests made, make that equal to the test cases variable
-                  test_cases = self.generate_tests_with_workflow(fileContent)
-                  if test_cases:
-                       test_cases = test_cases.replace("“", '"').replace("”", '"')
-                       self.save_test_cases(file_name, test_cases, language)
-                  else:
-                       logging.error(f"Failed to generate test cases for {file_name}")
-           except Exception as e:
-               logging.error(f"Error processing {file_name}: {e}")
+           if file_name != "generate_tests.py" or file_name != "updateDB.py" or file_name != "generateTestsWorkflow.py":
+            try:
+                #get file content
+                fileContent = self.get_file_content(file_name)
+                language = self.detect_language(file_name)
+                if fileContent:
+                    #call the updateDB.py file
+                    self.update_database(file_name, fileContent)
+                    #call another file that will call the workflow that actually generates tests, send that file the fileContent variable as an argument-- still needs to be made
+                    #the second file should return the tests made, make that equal to the test cases variable
+                    test_cases = self.generate_tests_with_workflow(fileContent)
+                    if test_cases:
+                        test_cases = test_cases.replace("“", '"').replace("”", '"')
+                        self.save_test_cases(file_name, test_cases, language)
+                    else:
+                        logging.error(f"Failed to generate test cases for {file_name}")
+            except Exception as e:
+                logging.error(f"Error processing {file_name}: {e}")
 if __name__ == '__main__':
    try:
        generator = TestGenerator()

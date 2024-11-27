@@ -1,2 +1,3 @@
 .env
 createVectordb.json
+generateTests.json
