@@ -5,7 +5,7 @@ from langflow.load import run_flow_from_json
 from astrapy import DataAPIClient
 # Set the tweaks for the flow (if necessary)
 TWEAKS = {
-  "GitLoader-9r3EU": {}, #customize with relevent tweaks if needed
+  "GitLoader-9r3EU": {}, #customize with relevent tweaks if need
   "SplitText-pzSeX": {},
   "OpenAIEmbeddings-ZcvG7": {},
   "AstraDB-u1Mqb": {},
