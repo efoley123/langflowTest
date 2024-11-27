@@ -49,7 +49,7 @@ def main():
         # Get the repository path
         repo_path = get_repo_path()
         # Run the flow and send the repository path as input
-        response = run_flow_from_json(flow="create vectordb.json", # Path to your flow definition
+        response = run_flow_from_json(flow="createVectordb.json", # Path to your flow definition
                             input_value=repo_path,# Send the repository path as input
                             session_id="", # Optional session ID
                             fallback_to_env_vars=True, # Use environment variables if necessary
