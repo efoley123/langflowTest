@@ -12,7 +12,7 @@ TWEAKS = {
   "ChatInput-5fjVm": {}
 }
 # Initialize the Astra DB client
-client = DataAPIClient("TOKEN")
+client = DataAPIClient( os.getenv("ASTRA_DB_TOKEN"))
 db = client.get_database_by_api_endpoint(
     "https://bc670507-0f48-475e-a77f-ba441d664131-us-east-2.apps.astra.datastax.com"
 )
