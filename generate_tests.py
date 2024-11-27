@@ -14,10 +14,10 @@ logging.basicConfig(
 )
 class TestGenerator:
    def __init__(self):
-       self.api_key = os.getenv('OPENAI_API_KEY')
-       self.model = os.getenv('OPENAI_MODEL', 'gpt-4-turbo-preview')
+       self.api_key = "dfs" #os.getenv('OPENAI_API_KEY')
+       self.model = "dfsd"#os.getenv('OPENAI_MODEL', 'gpt-4-turbo-preview')
        try:
-           self.max_tokens = int(os.getenv('OPENAI_MAX_TOKENS', '2000'))
+           self.max_tokens = 2000#int(os.getenv('OPENAI_MAX_TOKENS', '2000'))
        except ValueError:
            logging.error("Invalid value for OPENAI_MAX_TOKENS. Using default value: 2000")
            self.max_tokens = 2000
@@ -79,7 +79,7 @@ class TestGenerator:
         """Calls the generateTestsWorkflow.py file to generate test cases."""
         try:
             result = subprocess.run(
-                ["python", "generateTestsWorkflow.py", file_content],
+                ["python3", "generateTestsWorkflow.py", file_content],
                 capture_output=True,
                 text=True,
                 check=True
@@ -93,7 +93,7 @@ class TestGenerator:
         """Calls the updateDB.py file to update the database."""
         try:
             result = subprocess.run(
-                ["python", "updateDB.py"],
+                ["python3", "updateDB.py"],
                 capture_output=True,
                 text=True,
                 check=True
