@@ -23,7 +23,7 @@ async def generate_tests(file_content: str):
   "ChatInput-2TMlO": {}, #customize with relevent tweaks if needed 
   "OpenAIEmbeddings-i7380": {},
   "AstraDB-mWWFP": {
-        "session_id": "12345", #random numbers
+        "session_id": "1234", #random numbers
         "sender": "User",
         "sender_name": "User"
     },
@@ -36,7 +36,7 @@ async def generate_tests(file_content: str):
         # Run the workflow
         result = await run_flow_from_json(flow="GenerateTests.json", # Path to your LangFlow workflow JSON file
                             input_value=file_content,  # Use file content as input for the workflow
-                            session_id="", # Optional: provide a session ID if needed
+                            session_id="1234", # Optional: provide a session ID if needed
                             fallback_to_env_vars=True, # Default: False
                             tweaks=TWEAKS)  # Pass the tweaks dictionary
         return result

@@ -4,14 +4,17 @@ import json
 import asyncio
 from langflow.load import run_flow_from_json
 from astrapy import DataAPIClient, AsyncCollection
-
+import logging
+import sys
+import nest_asyncio
+nest_asyncio.apply() #this helped with an error for loop is already
 # Set the tweaks for the flow (if necessary)
 TWEAKS = {
     "GitLoader-9r3EU": {},  # Customize with relevant tweaks if needed
     "SplitText-pzSeX": {},
     "OpenAIEmbeddings-ZcvG7": {},
     "AstraDB-u1Mqb": {
-        "session_id": "1234",
+        "session_id": "1234",  # Random numbers
         "sender": "User",
         "sender_name": "User"
     },
@@ -19,13 +22,10 @@ TWEAKS = {
 }
 
 # Initialize the Astra DB client
-client = DataAPIClient("Your_TOKEN_HERE")
-db = client.get_database_by_api_endpoint(
-    "https://bc670507-0f48-475e-a77f-ba441d664131-us-east-2.apps.astra.datastax.com"
-)
+client = DataAPIClient("TOKEN")
+db = client.get_database_by_api_endpoint("https://c245e63a-73a2-45c6-96ab-862eaacf7f2d-us-east-2.apps.astra.datastax.com")
 
-# Collection name
-COLLECTION_NAME = "mydb"
+COLLECTION_NAME = "collection1"  # Collection name
 
 # Function to get the Git repository path
 def get_repo_path():
@@ -45,12 +45,16 @@ async def main():
     try:
         # Delete everything inside the collection
         collection = AsyncCollection(database=db, name=COLLECTION_NAME)
-        await collection.delete_many({})  # Use an empty filter to delete all documents
+        #await collection.delete_all()  # Deletes all in the collection
+        await collection.delete_many({})
         # Get the repository path
         repo_path = get_repo_path()
+
+        print(f"Repository Path: {repo_path}")
+        logging.info(f"Here it is {repo_path}")
         
         # Run the flow and send the repository path as input
-        response = run_flow_from_json(
+        response = await run_flow_from_json(
             flow="createVectordb.json",  # Path to your flow definition
             input_value=repo_path,  # Send the repository path as input
             fallback_to_env_vars=True,  # Use environment variables if necessary
@@ -64,4 +68,23 @@ async def main():
 
 # Run the script
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        # Check if there's an already running event loop
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            # No running loop, create a new one
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+        # If loop is already running (e.g., interactive environments), use `asyncio.ensure_future`
+        if loop.is_running():
+            task = asyncio.ensure_future(main())
+            # Await the task using `add_done_callback` to handle it properly
+            task.add_done_callback(lambda fut: print("Task finished!"))
+        else:
+            # Run the main coroutine
+            loop.run_until_complete(main())
+    except Exception as e:
+        logging.error(f"Fatal error: {e}")
+        sys.exit(1)
