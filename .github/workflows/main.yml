@@ -101,6 +101,7 @@ jobs:
          echo "Generating tests for: ${{ env.CHANGED_FILES }}"
          docker run --rm -v .:/app efoley481/langflow_image:img
          docker run --rm efoley481/langflow_image:img bash -c "
+         which langflow
          ls /app &&
          python generate_tests.py ${{ env.CHANGED_FILES }}"
         #docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
