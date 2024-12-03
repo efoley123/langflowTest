@@ -63,13 +63,15 @@ jobs:
     
     # Pull the Docker image from Docker Hub (or a different registry)
      - name: Pull Docker Image
-       run: docker pull efoley481/langflow_image:img
-            docker pull efoley481/postgres_image:1.0
+       run: |
+        docker pull efoley481/langflow_image:img
+        docker pull efoley481/postgres_image:1.0
 
     # Run Docker container with the image
      - name: Run Docker Container
-       run: docker run -d --rm efoley481/postgres_image:1.0
-            docker run -d --rm efoley481/langflow_image:img
+       run: |
+        docker run -d --rm efoley481/postgres_image:1.0 
+        docker run -d --rm efoley481/langflow_image:img
     
     #docker install dependencies
      - name: Install dependencies
