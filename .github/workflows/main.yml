@@ -76,12 +76,8 @@ jobs:
     #docker install dependencies
      - name: Install dependencies
        run: |
-         docker run --rm --name langflow-container efoley481/langflow_image:img bash
-         source /app/.venv/bin/activate
-         python -m pip --version
-         docker run --rm --name langflow-container efoley481/langflow_image:img bash -c "source /app/.venv/bin/activate && python -m ensurepip --upgrade && python -m pip install --upgrade pip"
-         docker run --rm --name langflow-container efoley481/langflow_image:img python -m pip install --upgrade pip
-         docker run --rm --name langflow-container efoley481/langflow_image:img pip install requests pytest
+         find / -type d -name "bin" 2>/dev/null
+         
 
 
 
