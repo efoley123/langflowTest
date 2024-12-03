@@ -86,7 +86,7 @@ jobs:
            python -m pip install --upgrade pip &&
            pip install requests pytest
          "
-    
+
 
 
      - name: Run test generation script
@@ -98,7 +98,7 @@ jobs:
          ASTRA_DB_TOKEN:  ${{ secrets.ASTRA_DB_TOKEN }}
        run: |
          echo "Generating tests for: ${{ env.CHANGED_FILES }}"
-         docker run --rm --name langflow-container efoley481/langflow_image:latest python generate_tests.py "${{ env.CHANGED_FILES }}"
+         docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
 
      - name: Create unique branch name
        if: env.CHANGED_FILES != ''
