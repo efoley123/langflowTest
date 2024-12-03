@@ -59,6 +59,15 @@ jobs:
        with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    # Pull the Docker image from Docker Hub (or a different registry)
+     - name: Pull Docker Image
+       run: docker pull efoley481/langflow_image:img
+
+    # Run Docker container with the image
+     - name: Run Docker Container
+       run: docker run --rm efoley481/langflow_image:img
+
 
 
      - name: Run test generation script
