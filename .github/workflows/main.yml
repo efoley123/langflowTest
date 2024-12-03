@@ -76,8 +76,9 @@ jobs:
     #docker install dependencies
      - name: Install dependencies
        run: |
+         docker run --rm --name langflow-container efoley481/langflow_image:img python -m ensurepip --upgrade
          docker run --rm --name langflow-container efoley481/langflow_image:img python -m pip install --upgrade pip
-         docker run --rm --name langflow-container efoley481/langflow_image:1.0 pip install requests pytest
+         docker run --rm --name langflow-container efoley481/langflow_image:img pip install requests pytest
 
 
 
