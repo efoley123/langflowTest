@@ -98,7 +98,9 @@ jobs:
          ASTRA_DB_TOKEN:  ${{ secrets.ASTRA_DB_TOKEN }}
        run: |
          echo "Generating tests for: ${{ env.CHANGED_FILES }}"
-         docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
+         source .venv/bin/activate
+         python generate_tests.py calculator.py
+        #docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
 
      - name: Create unique branch name
        if: env.CHANGED_FILES != ''
