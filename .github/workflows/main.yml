@@ -76,7 +76,7 @@ jobs:
     #docker install dependencies
      - name: Install dependencies
        run: |
-         docker run --rm efoley/langflow_image:img bash -c "
+         docker run --rm efoley481/langflow_image:img bash -c "
            apt-get update &&
            apt-get install -y python3 python3-venv python3-pip &&
            ln -s /usr/bin/python3 /usr/bin/python
@@ -86,7 +86,7 @@ jobs:
            python -m pip install --upgrade pip &&
            pip install requests pytest
          "
-      
+    
 
 
      - name: Run test generation script
