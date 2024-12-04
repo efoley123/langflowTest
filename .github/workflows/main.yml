@@ -81,17 +81,21 @@ jobs:
            apt-get install -y python3 python3-venv python3-pip &&
            ln -s /usr/bin/python3 /usr/bin/python
            python -m venv .venv &&
-           source .venv/bin/activate &&
            python -m ensurepip --upgrade &&
            python -m pip install --upgrade pip &&
            pip install requests pytest &&
            echo "finished all the commands above"
          "
-         docker run --rm --name langflow-container \
+      #  # # source .venv/bin/activate && was located after the first "python command"
+      
+     - name: Making venv
+       run: |
+        docker run --rm --name langflow-container \
           -v .:/app \
           -w /app \
           efoley481/langflow_image:img \
-          bash -c "source /app/.venv/bin/activate && python generate_tests.py calculator.py"
+          bash -c "source /app/.venv/bin/activate && 
+          python generate_tests.py calculator.py"
 
 
 
