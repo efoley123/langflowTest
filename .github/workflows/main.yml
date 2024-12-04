@@ -104,10 +104,11 @@ jobs:
           pip install pytest &&
           python -m venv /app/.venv &&
           source /app/.venv/bin/activate &&
-          python --version
-          python -m pip install requests
-          python -m pip install pytest
-          python -m pip list
+          python --version &&
+          python -m pip install requests &&
+          python -m pip install pytest &&
+          python -m pip install langflow &&
+          python -m pip list &&
           python generate_tests.py calculator.py"
 
 
