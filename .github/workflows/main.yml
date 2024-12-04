@@ -105,8 +105,8 @@ jobs:
           python -m venv /app/.venv &&
           source /app/.venv/bin/activate &&
           python --version &&
-          python -m langflow -v &&
           python -m pip list &&
+          python -m langflow -v &&
           python generate_tests.py calculator.py"
 
 
