@@ -94,7 +94,7 @@ jobs:
           -v .:/app \
           -w /app \
           efoley481/langflow_image:img \
-          bash -c "source /app/.venv/bin/activate && 
+          bash -c "source .venv/bin/activate && 
           python generate_tests.py calculator.py"
 
 
