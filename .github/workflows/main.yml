@@ -91,10 +91,10 @@ jobs:
      - name: Making venv
        run: |
         docker run --rm --name langflow-container \
-          -v .:/app \
+          -v ${{ github.workspace }}:/app \
           -w /app \
           efoley481/langflow_image:img \
-          bash -c "source .venv/bin/activate && 
+          bash -c "source /app/.venv/bin/activate && 
           python generate_tests.py calculator.py"
 
 
