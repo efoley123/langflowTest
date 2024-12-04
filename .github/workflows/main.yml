@@ -80,7 +80,6 @@ jobs:
            apt-get update &&
            apt-get install -y python3 python3-venv python3-pip &&
            ln -s /usr/bin/python3 /usr/bin/python
-           python -m venv /app/.venv &&
            python -m ensurepip --upgrade &&
            python -m pip install --upgrade pip &&
            pip install requests pytest &&
@@ -94,7 +93,9 @@ jobs:
           -v ${{ github.workspace }}:/app \
           -w /app \
           efoley481/langflow_image:img \
-          bash -c "source /app/.venv/bin/activate && 
+          bash -c "
+          python -m venv /app/.venv &&
+          source /app/.venv/bin/activate && 
           python generate_tests.py calculator.py"
 
 
