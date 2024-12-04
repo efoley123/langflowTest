@@ -87,6 +87,11 @@ jobs:
            pip install requests pytest &&
            echo "finished all the commands above"
          "
+         docker run --rm --name langflow-container \
+          -v .:/app \
+          -w /app \
+          efoley481\langflow_image:img \
+          bash -c "source /app/.venv/bin/activate && python generate_tests.py calculator.py"
 
 
 
@@ -102,7 +107,6 @@ jobs:
          docker run --rm -v .:/app efoley481/langflow_image:img
          docker run --rm efoley481/langflow_image:img bash -c "
          langflow -v
-         which langflow
          ls /app &&
          python generate_tests.py ${{ env.CHANGED_FILES }}"
         #docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
