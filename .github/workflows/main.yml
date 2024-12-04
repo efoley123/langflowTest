@@ -107,7 +107,7 @@ jobs:
           python --version &&
           python -m pip install requests &&
           python -m pip install pytest &&
-          python -m pip install langflow &&
+          python -m pip install langflow==1.1 &&
           python -m pip list &&
           python generate_tests.py calculator.py"
 
