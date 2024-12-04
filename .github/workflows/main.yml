@@ -92,6 +92,7 @@ jobs:
         docker run --rm --name langflow-container \
           -v ${{ github.workspace }}:/app \
           -w /app \
+          --user root \
           efoley481/langflow_image:img \
           bash -c "
           python -m venv /app/.venv &&
