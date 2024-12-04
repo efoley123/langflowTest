@@ -64,19 +64,19 @@ jobs:
     # Pull the Docker image from Docker Hub (or a different registry)
      - name: Pull Docker Image
        run: |
-        docker pull efoley481/langflow_image:img
-        docker pull efoley481/postgres_image:1.0
+        docker pull efoley481/langflow_image:latest
+        docker pull efoley481/postgres_image:latest
 
     # Run Docker container with the image
      - name: Run Docker Container
        run: |
-        docker run -d --rm efoley481/postgres_image:1.0 
-        docker run -d --rm efoley481/langflow_image:img
+        docker run -d --rm efoley481/postgres_image:latest
+        docker run -d --rm efoley481/langflow_image:latest
     
     #docker install dependencies
      - name: Install dependencies
        run: |
-         docker run --rm efoley481/langflow_image:img bash -c "
+         docker run --rm efoley481/langflow_image:latest bash -c "
            apt-get update &&
            apt-get install -y python3 python3-venv python3-pip &&
            ln -s /usr/bin/python3 /usr/bin/python
@@ -93,7 +93,7 @@ jobs:
           -v ${{ github.workspace }}:/app \
           -w /app \
           --user root \
-          efoley481/langflow_image:img \
+          efoley481/langflow_image:latest \
           bash -c "
           apt-get update &&
           apt-get install -y python3 python3-venv python3-pip &&
@@ -121,12 +121,12 @@ jobs:
          ASTRA_DB_TOKEN:  ${{ secrets.ASTRA_DB_TOKEN }}
        run: |
          echo "Generating tests for: ${{ env.CHANGED_FILES }}"
-         docker run --rm -v .:/app efoley481/langflow_image:img
-         docker run --rm efoley481/langflow_image:img bash -c "
+         docker run --rm -v .:/app efoley481/langflow_image:latest
+         docker run --rm efoley481/langflow_image:latest bash -c "
          langflow -v
          ls /app &&
          python generate_tests.py ${{ env.CHANGED_FILES }}"
-        #docker run --rm --name langflow-container efoley481/langflow_image:img python generate_tests.py "${{ env.CHANGED_FILES }}"
+        #docker run --rm --name langflow-container efoley481/langflow_image:latest python generate_tests.py "${{ env.CHANGED_FILES }}"
 
      - name: Create unique branch name
        if: env.CHANGED_FILES != ''
