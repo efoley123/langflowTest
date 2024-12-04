@@ -90,7 +90,7 @@ jobs:
          docker run --rm --name langflow-container \
           -v .:/app \
           -w /app \
-          efoley481\langflow_image:img \
+          efoley481/langflow_image:img \
           bash -c "source /app/.venv/bin/activate && python generate_tests.py calculator.py"
 
 
